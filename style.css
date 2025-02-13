@@ -1,0 +1,85 @@
+/* Reset some basic defaults */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	background: azure;
+}
+  
+  /* Overall container */
+#all-elements {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+}
+  
+  /* Center the page title and user message */
+#page-title,
+#user-message {
+	text-align: center;
+	margin-bottom: 20px;
+}
+  
+  /* Grid for timer containers */
+#containers {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+	margin-bottom: 20px;
+}
+  
+  /* Style for each timer container */
+.timer-container {
+	background-color: #f4f4f4;
+	border: 1px solid #ccc;
+	padding: 20px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+#cycle-container {
+	display: flex;
+	flex-direction: column;
+	row-gap: 10px;
+	align-items: center;
+	justify-content: center;
+}
+
+.progress-circle {
+	transform: rotate(-90deg); /* Rotate so that progress starts at the top */
+}
+  
+.progress-bg {
+	fill: none;
+	stroke: #eee;
+	stroke-width: 10;
+}
+  
+.progress-bar {
+	fill: none;
+	stroke: #3498db;
+	stroke-width: 10;
+	stroke-linecap: round;
+	transition: stroke-dashoffset 0.5s ease;
+}
+  
+  /* Grid for buttons so they align with the above row */
+#buttons {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+}
+  
+  /* Button styling */
+#buttons button {
+	padding: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	border: none;
+	background-color: #3498db;
+	color: #fff;
+	border-radius: 5px;
+}
