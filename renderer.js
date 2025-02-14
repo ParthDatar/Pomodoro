@@ -16,16 +16,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	const breakCircle = document.querySelector('#break-container .progress-bar');
 
 	// Define durations (in milliseconds)
-	const workDuration  = 25 * 60 * 1000; // 25 minutes
-	const breakDuration = 5 * 60 * 1000;  // 5 minutes
+	const workDuration  = .25 * 60 * 1000; // 25 minutes
+	const breakDuration = .25 * 60 * 1000;  // 5 minutes
 
 	// Define the sound file to be used
 	const bellSound = 'bell-at-daitokuji-templekyoto.wav';
 
 	// Instantiate Timer objects for work and break periods.
 	// (The Timer constructor expects: name, duration, soundUrl, displayElement, progressCircle, isPaused)
-	const workTimer  = new Timer('Work',  workDuration,  bellSound, workTimerDisplay,  workCircle,  false);
-	const breakTimer = new Timer('Break', breakDuration, bellSound, breakTimerDisplay, breakCircle, false);
+	const workTimer  = new Timer('Work',  workDuration,  bellSound, workTimerDisplay,  workCircle,  true);
+	const breakTimer = new Timer('Break', breakDuration, bellSound, breakTimerDisplay, breakCircle, true);
 
 	// Instantiate the PomodoroTimer with our two timers and the cycle counter element.
 	const pomodoro = new PomodoroTimer(workTimer, breakTimer, cycleCounterDisplay);
