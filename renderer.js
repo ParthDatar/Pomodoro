@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	let cycleStartTime = null;
 	let currentCycle = 0;
 	let currentMode = 'work'; // either 'work' or 'break'
+    let intervalDuration = 100;
+    let accumulatedElapsed = 0;
 	
 	/**
 	 * Helper function to format milliseconds as mm:ss
@@ -52,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	 */
 	function updateTimer() {
 		const now = new Date();
-		const elapsed = now - cycleStartTime;
+		const elapsed = (cycleStartTime ? now - cycleStartTime : 0) + accumulatedElapsed;
 		let remaining;
 		
 		if (currentMode === 'work') {
@@ -81,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			if (currentMode === 'work') {
 				// Switch from work to break
 				currentMode = 'break';
+                accumulatedElapsed = 0;
 				cycleStartTime = new Date();
 				if(currentCycle % 4 == 3){
 					breakDuration *= 4;
@@ -95,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				currentCycle++;
 				cycleCounterDisplay.textContent = currentCycle;
 				currentMode = 'work';
+                accumulatedElapsed = 0;
 				cycleStartTime = new Date();
 				workTimerDisplay.textContent = formatTime(workDuration);
 				// Reset work progress circle
@@ -108,8 +112,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	 */
 	function startTimer() {
 		if (timerInterval !== null) return; // Prevent multiple intervals
-		cycleStartTime = new Date();
-		timerInterval = setInterval(updateTimer, 1000);
+        if(cycleStartTime === null){
+		    cycleStartTime = new Date();
+        }
+		timerInterval = setInterval(updateTimer, intervalDuration);
 	}
 	
 	/**
@@ -119,6 +125,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (timerInterval !== null) {
 			clearInterval(timerInterval);
 			timerInterval = null;
+                // Add the elapsed time from this run to accumulatedElapsed.
+            if (cycleStartTime) {
+                accumulatedElapsed += new Date() - cycleStartTime;
+                cycleStartTime = null; // Indicate that we’re paused.
+            }
 		}
 	}
 	
@@ -132,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		currentMode = 'work';
 		workTimerDisplay.textContent = formatTime(workDuration);
 		breakTimerDisplay.textContent = formatTime(breakDuration);
+        accumulatedElapsed = 0;
 		// Reset progress circles
 		workCircle.style.strokeDashoffset = workCircumference;
 		breakCircle.style.strokeDashoffset = breakCircumference;
