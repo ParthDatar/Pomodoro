@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	const breakCircle = document.querySelector('#break-container .progress-bar');
 
 	// Define durations (in milliseconds)
-	const workDuration  = .25 * 60 * 1000; // 25 minutes
-	const breakDuration = .25 * 60 * 1000;  // 5 minutes
+	const workDuration  = 25 * 60 * 1000; // 25 minutes
+	const breakDuration = 5 * 60 * 1000;  // 5 minutes
 
 	// Define the sound file to be used
 	const bellSound = 'bell-at-daitokuji-templekyoto.wav';
